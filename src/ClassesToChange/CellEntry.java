@@ -1,8 +1,29 @@
+package ClassesToChange;
+
+import ClassesNotToChange.Ex2Utils;
+import Interfaces.Cell;
+import Interfaces.Index2D;
+
 public class CellEntry implements Index2D {
+    int x;
+    int y;
     private String cellIndex;
 
     public CellEntry(String cellIndex) {
+
         this.cellIndex = cellIndex;
+    }
+
+    public CellEntry(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public CellEntry cell2Place(String cellIndex) {
+        char letter = cellIndex.charAt(0); // Letter from A to Z
+        int number = Integer.parseInt(cellIndex.substring(1, cellIndex.length() -1)); // The Number
+        int letterValue = letter - 'A';
+        return new CellEntry(letterValue, number);
     }
 
     /**

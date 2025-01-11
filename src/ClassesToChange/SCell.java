@@ -1,3 +1,7 @@
+package ClassesToChange;
+
+import ClassesNotToChange.Ex2Utils;
+import Interfaces.Cell;
 
 public class SCell implements Cell {
     private String line;
@@ -34,6 +38,7 @@ public class SCell implements Cell {
      */
     @Override
     public String toString() {
+
         return getData();
     }
 
@@ -60,6 +65,7 @@ public class SCell implements Cell {
      */
     @Override
     public String getData() {
+
         return line;
     }
 
@@ -69,6 +75,7 @@ public class SCell implements Cell {
      */
     @Override
     public int getType() {
+
         return type;
     }
 

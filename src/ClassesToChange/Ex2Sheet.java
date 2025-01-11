@@ -1,9 +1,16 @@
+package ClassesToChange;
+
+import ClassesNotToChange.Ex2Utils;
+import Interfaces.Cell;
+import Interfaces.Sheet;
+
 import java.io.*;
 import java.util.*;
 import java.util.regex.*;
 
 public class Ex2Sheet implements Sheet {
     private Cell[][] table;
+    private Map<String, String> evalCache = new HashMap<>();
 
     public Ex2Sheet(int x, int y) {
         table = new SCell[x][y];
@@ -63,9 +70,8 @@ public class Ex2Sheet implements Sheet {
             for (char c : column.toUpperCase().toCharArray()) {
                 x = x * 26 + (c - 'A' + 1);
             }
-            x--; // Convert to zero-based
+            x--;
 
-            // Convert row directly to an integer (already zero-based in your spreadsheet)
             int y = Integer.parseInt(row);
 
             // Return the cell at (x, y)
@@ -93,7 +99,7 @@ public class Ex2Sheet implements Sheet {
             return cell.getData(); // מחזיר ערך מספרי או טקסטואלי ישיר
         } else if (cell.getType() == Ex2Utils.FORM) {
             try {
-                double result = ExpressionEvaluator.evaluate(cell.getData().substring(1)); // מחשב את הנוסחה
+                double result = ComputeForm.evaluate(cell.getData().substring(1)); // מחשב את הנוסחה
                 return String.valueOf(result);
             } catch (Exception e) {
                 cell.setType(Ex2Utils.ERR_FORM_FORMAT);
@@ -140,9 +146,9 @@ public class Ex2Sheet implements Sheet {
             int maxDepth = 0;
             for (String ref : extractReferences(formula)) {
                 Cell refCell = get(ref);
-                if (refCell instanceof Index2D) {
-                    int refX = ((Index2D) refCell).getX();
-                    int refY = ((Index2D) refCell).getY();
+                if (refCell instanceof CellEntry) {
+                    int refX = ((CellEntry) refCell).getX();
+                    int refY = ((CellEntry) refCell).getY();
                     maxDepth = Math.max(maxDepth, computeDepth(refX, refY, new HashSet<>(visited)));
                 }
             }

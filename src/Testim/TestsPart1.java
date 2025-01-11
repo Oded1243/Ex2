@@ -1,3 +1,7 @@
+package Testim;
+
+import ClassesToChange.ComputeForm;
+import ClassesToChange.Main;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,6 +16,10 @@ public class TestsPart1 {
         assertFalse(Main.isForm("5+-2"));
         assertFalse(Main.isForm("5*(5/*3)"));
         assertFalse(Main.isForm("5a+7"));
+        assertTrue(Main.isForm("=A1"));
+        assertFalse(Main.isForm("=I17"));
+        assertTrue(Main.isForm("=a1"));
+        assertTrue(Main.isForm("=A0"));
     }
 
     @Test
@@ -36,7 +44,7 @@ public class TestsPart1 {
     public void testSimpleAddition() throws Exception {
         String expression = "1+2";
         double expected = 3.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -44,7 +52,7 @@ public class TestsPart1 {
     public void testParenthesesWithMultiplication() throws Exception {
         String expression = "(1+2)* 3";
         double expected = 9.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -52,7 +60,7 @@ public class TestsPart1 {
     public void testSimpleDivision() throws Exception {
         String expression = "10/2";
         double expected = 5.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -60,7 +68,7 @@ public class TestsPart1 {
     public void testDivisionWithParentheses() throws Exception {
         String expression = "10/(2+3)";
         double expected = 2.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -68,7 +76,7 @@ public class TestsPart1 {
     public void testMixedAdditionAndSubtraction() throws Exception {
         String expression = "10-5+3";
         double expected = 8.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -76,7 +84,7 @@ public class TestsPart1 {
     public void testParenthesesWithMixedOperations() throws Exception {
         String expression = "(10-5)*(3+2)";
         double expected = 25.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -84,7 +92,7 @@ public class TestsPart1 {
     public void testComplexMixedOperations() throws Exception {
         String expression = "2*(3+5)/4";
         double expected = 4.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -92,21 +100,21 @@ public class TestsPart1 {
     public void testNestedParentheses() throws Exception {
         String expression = "(1+2)*(3/(2/5))";
         double expected = 22.5;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
     @Test
     public void testDivisionByZero() {
         String expression = "2/0";
-        assertThrows(ArithmeticException.class, () -> ExpressionEvaluator.evaluate(expression));
+        assertThrows(ArithmeticException.class, () -> ComputeForm.evaluate(expression));
     }
 
     @Test
     public void testNoParenthesesWithPrecedence() throws Exception {
         String expression = "3+5*2-8/4";
         double expected = 11.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -114,7 +122,7 @@ public class TestsPart1 {
     public void testDecimalsAddition() throws Exception {
         String expression = "3.5+2.1";
         double expected = 5.6;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -122,7 +130,7 @@ public class TestsPart1 {
     public void testDecimalsWithParentheses() throws Exception {
         String expression = "(1.5+2.5)*4";
         double expected = 16.0;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 
@@ -130,7 +138,7 @@ public class TestsPart1 {
     public void testDeeplyNestedParentheses() throws Exception {
         String expression = "((1+2)*3)/(2+4)";
         double expected = 1.5;
-        double result = ExpressionEvaluator.evaluate(expression);
+        double result = ComputeForm.evaluate(expression);
         assertEquals(expected, result, 1e-6);
     }
 }

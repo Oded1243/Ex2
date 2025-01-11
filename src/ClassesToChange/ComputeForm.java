@@ -1,22 +1,17 @@
+package ClassesToChange;
+
 import java.util.Stack;
 
-public class ExpressionEvaluator {
+public class ComputeForm {
     public static double evaluate(String expression) {
         expression = expression.replaceAll("\\s+", "");   // Remove spaces and validate
-        if (!isForm(expression)) {
+        if (!Main.isForm(expression)) {
             throw new IllegalArgumentException("Invalid expression");
         }
 
         String postfix = infixToPostfix(expression);   // Convert infix to postfix (Reverse Polish Notation)
 
         return evaluatePostfix(postfix);   // Evaluate the postfix expression
-    }
-
-    public static boolean isForm(String s) {
-
-        String formulaPattern = "\\s*\\(*\\d+(\\.\\d+)?([+\\-*/]\\(*\\d+(\\.\\d+)?\\)*)*\\s*";
-
-        return s.matches(formulaPattern);
     }
 
     private static String infixToPostfix(String expression) {
