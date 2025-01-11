@@ -99,7 +99,7 @@ public class Ex2Sheet implements Sheet {
             return cell.getData(); // מחזיר ערך מספרי או טקסטואלי ישיר
         } else if (cell.getType() == Ex2Utils.FORM) {
             try {
-                double result = ComputeForm.evaluate(cell.getData().substring(1)); // מחשב את הנוסחה
+                double result = SCell.ComputeForm(cell.getData().substring(1)); // מחשב את הנוסחה
                 return String.valueOf(result);
             } catch (Exception e) {
                 cell.setType(Ex2Utils.ERR_FORM_FORMAT);
